@@ -1,6 +1,6 @@
 from ucsmsdk.ucshandle import UcsHandle
 
-def get_service_profile_templates(ucs_domain, ucs_username, ucs_password):
+def get_service_profile_list(ucs_domain, ucs_username, ucs_password):
     # Initialize handle with UCS Manager credentials
     handle = UcsHandle(ucs_domain, ucs_username, ucs_password)
 
@@ -8,15 +8,15 @@ def get_service_profile_templates(ucs_domain, ucs_username, ucs_password):
         # Login to UCS Manager
         handle.login()
 
-        # Query for all service profile templates
-        sp_templates = handle.query_classid("LsServer")
-        sp_template_names = [sp.name for sp in sp_templates if sp.type == "instance"]
+        # Query for all service profiles
+        service_profile = handle.query_classid("LsServer")
+        sp_names = [sp.name for sp in service_profile if sp.type == "instance"]
 
-        if not sp_template_names:
-            print("No service profile templates found.")
+        if not sp_names:
+            print("No service profile found.")
             return []
 
-        return sp_template_names
+        return sp_names
 
     except Exception as e:
         print("An error occurred: {}".format(str(e)))
@@ -33,9 +33,9 @@ if __name__ == "__main__":
     ucs_password = input("Enter UCS Password: ")
 
     # Get list of Service Profile Templates
-    sp_template_names = get_service_profile_templates(ucs_domain, ucs_username, ucs_password)
+    sp_names = get_service_profile_list(ucs_domain, ucs_username, ucs_password)
 
     # Print the list of Service Profile Templates
-    print("Service Profile Templates:")
-    for template_name in sp_template_names:
-        print(template_name)
+    print("Service Profiles:")
+    for sp_name in sp_names:
+        print(sp_name)

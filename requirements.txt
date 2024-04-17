@@ -1,3 +1,4 @@
+colorama==0.4.6
 pyparsing==3.1.2
 six==1.16.0
 ucsmsdk==0.9.16
